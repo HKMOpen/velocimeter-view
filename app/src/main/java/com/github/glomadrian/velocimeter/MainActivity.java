@@ -10,6 +10,12 @@ public class MainActivity extends AppCompatActivity {
   private SeekBar seek;
   private VelocimeterView velocimeter;
   private VelocimeterView velocimeter2;
+  private SocketHandler handler;
+  private int speed;
+
+  void updateSpeed(int speed) {
+    this.speed = speed;
+  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -18,13 +24,14 @@ public class MainActivity extends AppCompatActivity {
     seek.setOnSeekBarChangeListener(new SeekListener());
     velocimeter = (VelocimeterView) findViewById(R.id.velocimeter);
     velocimeter2 = (VelocimeterView) findViewById(R.id.velocimeter2);
+    handler = new SocketHandler("{'auth':'AuthMagic', 'subscribe':'root.engine.speed'}", this);
   }
 
   private class SeekListener implements SeekBar.OnSeekBarChangeListener {
 
     @Override public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-      velocimeter.setValue(progress, true);
-      velocimeter2.setValue(progress, true);
+      velocimeter.setValue(speed, true);
+      velocimeter2.setValue(speed, true);
     }
 
     @Override public void onStartTrackingTouch(SeekBar seekBar) {
