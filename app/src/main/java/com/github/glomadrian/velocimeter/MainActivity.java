@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.SeekBar;
 import com.github.glomadrian.velocimeterlibrary.VelocimeterView;
+import com.google.gson.Gson;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     seek.setOnSeekBarChangeListener(new SeekListener());
     velocimeter = (VelocimeterView) findViewById(R.id.velocimeter);
     velocimeter2 = (VelocimeterView) findViewById(R.id.velocimeter2);
-    handler = new SocketHandler("{'auth':'AuthMagic', 'subscribe':'root.engine.speed'}", this);
+    handler = new SocketHandler("{'auth':'AuthMagic', 'item': {'action':'SUBSCRIBE', 'signal':{'path':'root.engine.speed'}}}", this);
     timerHandler.postDelayed(timerRunnable, 0);
   }
 

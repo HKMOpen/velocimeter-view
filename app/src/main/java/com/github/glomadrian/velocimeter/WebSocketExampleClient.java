@@ -18,6 +18,11 @@ import org.java_websocket.handshake.HandshakeImpl1Client;
 import org.java_websocket.handshake.Handshakedata;
 import org.java_websocket.handshake.ServerHandshake;
 
+import com.google.gson.Gson;
+import org.w3c.connectedcars.RequestResponseParser;
+import org.w3c.connectedcars.Request;
+import org.w3c.connectedcars.Response;
+
 public class WebSocketExampleClient extends WebSocketClient {
     private MainActivity main = null; 
 
@@ -51,8 +56,13 @@ public class WebSocketExampleClient extends WebSocketClient {
 
     // quick and dirty mph parser
     private Integer parseJson(String json) {
-        if (null == json || !json.contains("mph")) return null;
-        return new Integer(json.substring("{\"mph\":".length(), json.length() - 1));
+        if (null == json || !json.contains("value")) return null;
+        Response response = RequestResponseParser.fromJsonToResponse(json);
+        
+        if (null == response) {
+        	return null;
+        }
+        return Integer.parseInt(response.getSignal().getValue());
     }
 }
 
