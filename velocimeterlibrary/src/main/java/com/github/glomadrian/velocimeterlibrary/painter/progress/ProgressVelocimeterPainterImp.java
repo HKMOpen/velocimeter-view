@@ -62,6 +62,7 @@ public class ProgressVelocimeterPainterImp implements ProgressVelocimeterPainter
   }
 
   @Override public void draw(Canvas canvas) {
+    if(plusAngle>0)
     canvas.drawArc(circle, startAngle, plusAngle, false, paint);
   }
 
